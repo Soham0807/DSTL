@@ -1,0 +1,307 @@
+METHOD 2 — OFFLINE LAB (Most Likely)
+
+If internet disabled:
+
+Faculty usually provides:
+
+Northwind.xlsx
+Northwind.csv
+SQL backup
+Import Offline File
+
+Click:
+
+Home → Get Data → Excel/CSV
+
+Select Northwind dataset.
+
+Click:
+
+Load
+STEP 3 — OPEN POWER QUERY (TRANSFORM)
+
+After loading:
+
+Click:
+
+Transform Data
+
+This opens:
+
+Power Query Editor
+
+This is where ETL transformations happen.
+
+STEP 4 — REMOVE UNNECESSARY COLUMNS
+Requirement:
+
+Keep ONLY:
+
+ProductID
+ProductName
+UnitsInStock
+QuantityPerUnit
+Steps
+
+In Products table:
+
+Hold:
+
+Ctrl
+
+Select:
+
+ProductID
+ProductName
+UnitsInStock
+QuantityPerUnit
+
+Then:
+
+Right Click → Remove Other Columns
+
+Now only required columns remain.
+
+STEP 5 — CHANGE DATA TYPE
+
+Requirement:
+
+Convert:
+
+UnitsInStock
+
+to:
+
+Whole Number
+Steps
+
+Click column:
+
+UnitsInStock
+
+Top ribbon:
+
+Transform → Data Type
+
+Choose:
+
+Whole Number
+
+If warning appears:
+
+Replace Current
+STEP 6 — EXPAND Order_Details TABLE
+
+Goal:
+
+Combine:
+
+Orders
+Order_Details
+
+tables.
+
+IMPORTANT CONCEPT
+
+This is basically a JOIN operation.
+
+Common field:
+
+OrderID
+Steps
+1. Select Orders table
+
+Left panel → click:
+
+Orders
+2. Merge Queries
+
+Top menu:
+
+Home → Merge Queries
+3. Select Tables
+
+Choose:
+
+First Table	Orders
+Second Table	Order_Details
+4. Select Matching Column
+
+Click:
+
+OrderID
+
+in BOTH tables.
+
+Click:
+
+OK
+STEP 7 — EXPAND TABLE
+
+A new column appears:
+
+Order_Details
+
+with small expand icon beside it.
+
+Click expand icon.
+
+Select fields like:
+
+UnitPrice
+Quantity
+ProductID
+
+Uncheck:
+
+Use original column name as prefix
+
+Click:
+
+OK
+
+Now tables are combined.
+
+STEP 8 — ADD CUSTOM COLUMN
+
+Requirement:
+
+Create:
+
+line_total
+
+Formula:
+
+[Order_Details.UnitPrice] * [Order_Details.Quantity]
+Steps
+
+Top ribbon:
+
+Add Column → Custom Column
+Enter:
+Column Name
+line_total
+Formula
+[UnitPrice] * [Quantity]
+
+(Depending on expanded names)
+
+Click:
+
+OK
+
+New calculated column created.
+
+STEP 9 — APPLY CHANGES
+
+Click:
+
+Close & Apply
+
+Power BI loads transformed dataset.
+
+STEP 10 — CREATE VISUALIZATION (LOAD)
+
+Now create chart.
+
+OPTION 1 — BAR CHART
+Steps
+
+From Visualizations panel:
+
+Click:
+
+Clustered Bar Chart
+Drag Fields
+Axis	ProductName
+Values	line_total
+OPTION 2 — PIE CHART
+Legend	ProductName
+Values	line_total
+OPTION 3 — LINE CHART
+X-axis	ProductID
+Y-axis	line_total
+STEP 11 — FORMAT CHART
+
+Click chart.
+
+Use:
+
+Format Visual
+
+to:
+
+change title
+resize chart
+add labels
+EXAMPLE INSIGHTS YOU CAN WRITE
+Products with higher quantity and unit price generate larger line totals.
+Certain products contribute more significantly to overall sales.
+FINAL OUTPUT SHOULD SHOW
+
+✅ Imported data
+✅ Removed unnecessary columns
+✅ Changed datatype
+✅ Merged tables
+✅ Added custom column
+✅ Created visualization
+
+IMPORTANT VIVA QUESTIONS
+What is ETL?
+
+ETL stands for Extract, Transform, and Load.
+
+What is Power Query?
+
+Tool in Power BI used for data cleaning and transformation.
+
+What is Merge Query?
+
+Used to combine two tables using common columns.
+
+Why use custom columns?
+
+To create calculated fields from existing data.
+
+What is line_total?
+
+Total amount calculated using:
+
+UnitPrice × Quantity
+Difference between Load and Transform?
+Load	Transform
+Imports data	Modifies data
+COMMON ERRORS
+ERROR 1 — Cannot expand table
+
+Cause:
+
+Wrong table selected.
+
+Fix:
+
+Ensure:
+
+OrderID
+
+selected in both tables.
+
+ERROR 2 — Formula error in custom column
+
+Fix:
+
+Use exact field names shown after expansion.
+
+Example:
+
+[UnitPrice] * [Quantity]
+
+instead of prefixed names if prefix removed.
+
+ERROR 3 — Blank chart
+
+Fix:
+
+Ensure numeric field placed in:
+
+Values

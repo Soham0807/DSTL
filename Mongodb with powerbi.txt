@@ -1,0 +1,181 @@
+Practical 7 — MongoDB to Power BI using API
+
+Since internet is OFF, lab usually uses:
+
+local MongoDB
+local JSON export
+localhost API
+
+We’ll do simplest beginner-friendly method.
+
+PART 1 — Start MongoDB
+
+Open terminal:
+
+mongod
+
+Open another terminal:
+
+mongosh
+PART 2 — Create Database
+use salesDB
+PART 3 — Insert Data
+db.sales.insertMany([
+{
+product:"Laptop",
+sales:50000,
+city:"Mumbai"
+},
+{
+product:"Phone",
+sales:30000,
+city:"Pune"
+}
+])
+PART 4 — Verify Data
+db.sales.find()
+PART 5 — Export JSON
+
+Exit mongosh.
+
+Run:
+
+mongoexport --db=salesDB --collection=sales --out=sales.json
+PART 6 — Open Power BI
+
+Open:
+
+Power BI Desktop
+PART 7 — Import JSON
+Home → Get Data → JSON
+
+Select:
+
+sales.json
+
+Load data.
+
+PART 8 — Create Charts
+
+Example:
+
+Chart	Fields
+Bar chart	city vs sales
+Pie chart	product vs sales
+Viva Questions
+What is MongoDB?
+
+NoSQL document database.
+
+What is JSON?
+
+JavaScript Object Notation for storing structured data.
+
+Why connect MongoDB to Power BI?
+
+For visualization and reporting.
+
+Practical 8 — ETL using Power BI
+
+ETL means:
+
+Term	Meaning
+Extract	Import data
+Transform	Modify/Clean
+Load	Use in reports
+Step 1 — Open Power BI
+Step 2 — Get Data
+Home → Get Data
+
+Choose:
+
+OData Feed
+
+Since internet unavailable, your faculty may provide offline Northwind dataset.
+
+If offline file exists:
+
+Choose:
+
+Excel/CSV
+
+instead.
+
+Step 3 — Load Data
+
+Select:
+
+Products
+Orders
+Order_Details
+Step 4 — Open Power Query
+
+Click:
+
+Transform Data
+b. Remove Unnecessary Columns
+
+Keep only:
+
+ProductID
+ProductName
+UnitsInStock
+QuantityPerUnit
+
+Select other columns → Right click → Remove.
+
+c. Change Data Type
+
+Click:
+
+UnitsInStock
+
+Choose:
+
+Data Type → Whole Number
+d. Expand Order_Details Table
+
+Merge Queries:
+
+Home → Merge Queries
+
+Choose:
+
+Orders
+Order_Details
+
+Match:
+
+OrderID
+
+Expand columns using expand icon.
+
+e. Add Custom Column
+Add Column → Custom Column
+
+Name:
+
+line_total
+
+Formula:
+
+[Order_Details.UnitPrice] * [Order_Details.Quantity]
+f. Create Chart
+
+Click:
+
+Close & Apply
+
+Create:
+
+Bar chart
+Pie chart
+Line chart
+
+using:
+
+line_total
+
+and
+
+ProductName

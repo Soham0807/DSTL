@@ -1,0 +1,141 @@
+Practical 4 — Data Visualization using Tableau / Power BI
+
+We’ll cover BOTH Tableau and Power BI style workflow so you can do whichever software is available in lab.
+
+Dataset:
+Any supermarket/sales CSV or Excel file already downloaded in system.
+
+Examples:
+
+sales.csv
+superstore.csv
+orders.xlsx
+PART A — TABLEAU (Beginner Friendly)
+Step 1 — Open Tableau
+
+Open:
+
+Applications → Tableau
+
+or search:
+
+Tableau
+Step 2 — Connect Dataset
+
+On left side:
+
+Connect → To a File
+
+Choose:
+
+Excel
+OR
+Text File (CSV)
+
+Select dataset.
+
+Click:
+
+Open
+Step 3 — Go to Sheet 1
+
+Bottom tab:
+
+Sheet 1
+
+Click it.
+
+Understanding Tableau Interface
+
+You’ll see:
+
+Section	Purpose
+Rows	Y-axis
+Columns	X-axis
+Marks	Color/labels
+Show Me	Chart suggestions
+Data Pane	Dataset columns
+a. Create Line Chart
+Goal
+
+Visualize sales over time.
+
+Steps
+
+Drag:
+
+Order Date
+
+to:
+
+Columns
+
+Then drag:
+
+Sales
+
+to:
+
+Rows
+
+Now click:
+
+Show Me → Line Chart
+Insight Example
+Sales increase during festive seasons.
+b. Create Bar Chart
+
+Drag:
+
+Category
+
+to Columns.
+
+Drag:
+
+Sales
+
+to Rows.
+
+Choose:
+
+Show Me → Bar Chart
+Insight Example
+Technology category has highest sales.
+c. Create Tree Map
+
+Drag:
+
+Category
+
+and:
+
+Sales
+
+Choose:
+
+Show Me → Treemap
+Insight Example
+Furniture contributes less compared to Technology.
+Save Project
+File → Save As
+
+Name:
+
+sales_visualization
+VIVA QUESTIONS
+What is Tableau?
+
+A data visualization tool used for interactive dashboards and analysis.
+
+What is a dashboard?
+
+Collection of charts and visuals in one screen.
+
+What is a dimension?
+
+Categorical data like city/category.
+
+What is a measure?
+
+Numerical data like sales/profit.

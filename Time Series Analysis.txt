@@ -1,0 +1,149 @@
+Practical 3 — Time Series Analysis in Python (Offline Ubuntu)
+
+Dataset:
+
+a10.csv
+
+(Already downloaded)
+
+Step 1 — Create Folder
+mkdir TimeSeries
+cd TimeSeries
+
+Put:
+
+a10.csv
+
+inside folder.
+
+Step 2 — Create Python File
+nano timeseries.py
+
+Paste FULL CODE BELOW.
+
+COMPLETE TIME SERIES CODE
+import pandas as pd
+import matplotlib.pyplot as plt
+from statsmodels.tsa.seasonal import seasonal_decompose
+from statsmodels.tsa.stattools import adfuller
+
+# Load dataset
+df = pd.read_csv("a10.csv")
+
+# Convert date column
+df['date'] = pd.to_datetime(df['date'])
+
+# Set index
+df.set_index('date', inplace=True)
+
+print(df.head())
+
+# a & b Visualize time series
+df.plot(figsize=(10,5))
+plt.title("Time Series")
+plt.show()
+
+# c Seasonal Plot
+df.groupby(df.index.month).mean().plot()
+plt.title("Seasonal Plot")
+plt.show()
+
+# d Boxplot
+df.boxplot()
+plt.title("Boxplot")
+plt.show()
+
+# e Patterns
+rolling_mean = df.rolling(window=12).mean()
+
+plt.figure(figsize=(10,5))
+plt.plot(df)
+plt.plot(rolling_mean)
+plt.title("Trend Pattern")
+plt.show()
+
+# f Additive decomposition
+decompose_add = seasonal_decompose(df, model='additive')
+decompose_add.plot()
+plt.show()
+
+# Multiplicative decomposition
+decompose_mul = seasonal_decompose(df, model='multiplicative')
+decompose_mul.plot()
+plt.show()
+
+# g Decompose series
+result = seasonal_decompose(df, model='additive')
+result.plot()
+plt.show()
+
+# h Stationarity test
+adf_test = adfuller(df['value'])
+
+print("ADF Statistic:", adf_test[0])
+print("p-value:", adf_test[1])
+
+# i Make stationary
+df_diff = df.diff().dropna()
+
+df_diff.plot()
+plt.title("Stationary Series")
+plt.show()
+
+# j Detrend
+detrended = df - rolling_mean
+
+detrended.plot()
+plt.title("Detrended")
+plt.show()
+
+# k Deseasonalize
+deseasonalized = df / result.seasonal
+
+deseasonalized.plot()
+plt.title("Deseasonalized")
+plt.show()
+
+# l Seasonality test
+print("Seasonality observed from decomposition graphs")
+Step 3 — Install Required Libraries (Offline Lab Usually Already Has Them)
+
+Check:
+
+python3
+
+Then:
+
+import pandas
+import matplotlib
+import statsmodels
+
+If no error:
+
+GOOD.
+
+Exit:
+
+exit()
+Step 4 — Run Program
+python3 timeseries.py
+IMPORTANT VIVA QUESTIONS
+What is Time Series?
+
+Data collected over time intervals.
+
+What is seasonality?
+
+Repeated patterns over fixed intervals.
+
+What is trend?
+
+Long-term movement in data.
+
+What is stationarity?
+
+When mean and variance remain constant over time.
+
+What is ADF Test?
+
+Augmented Dickey-Fuller test checks stationarity.
