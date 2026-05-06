@@ -1,0 +1,250 @@
+Practical 2 — Exploratory Data Analysis on Web Logs using Apache Spark (Ubuntu Offline)
+
+We’ll do this using:
+
+Ubuntu
+Apache Spark (already installed or provided by lab)
+Python (PySpark)
+VS Code or Terminal
+Offline NASA log dataset
+
+Dataset file will usually look like:
+
+access_log_Jul95
+access_log_Aug95
+PART 1 — SETUP (VERY IMPORTANT)
+Step 1 — Open Terminal
+
+Press:
+
+Ctrl + Alt + T
+Step 2 — Check Python
+
+Type:
+
+python3 --version
+
+You should see something like:
+
+Python 3.10.12
+Step 3 — Check Spark
+
+Type:
+
+pyspark
+
+If Spark opens and shows:
+
+SparkSession available as 'spark'
+
+then setup is correct.
+
+Exit using:
+
+exit()
+PART 2 — CREATE PROJECT FOLDER
+Step 4 — Make Folder
+mkdir WebLogEDA
+cd WebLogEDA
+Step 5 — Put Dataset Files Here
+
+Copy these files into this folder:
+
+access_log_Jul95
+access_log_Aug95
+
+You can use File Manager drag-drop.
+
+PART 3 — CREATE PYTHON FILE
+Step 6 — Create File
+nano weblog_analysis.py
+
+Paste the FULL code below.
+
+COMPLETE PYSPARK CODE
+from pyspark.sql import SparkSession
+from pyspark.sql.functions import *
+from pyspark.sql.types import *
+
+# Create Spark Session
+spark = SparkSession.builder.appName("WebLogAnalysis").getOrCreate()
+
+# Read log files
+logs = spark.read.text("access_log_*")
+
+# Extract fields using regex
+log_df = logs.select(
+    regexp_extract('value', r'^(\S+)', 1).alias('host'),
+    regexp_extract('value', r'\"[A-Z]+\s(.+?)\sHTTP', 1).alias('endpoint'),
+    regexp_extract('value', r'\"\s(\d{3})', 1).cast('integer').alias('status'),
+    regexp_extract('value', r'\s(\d+)$', 1).cast('integer').alias('content_size'),
+    regexp_extract('value', r'\[(\d{2}/\w+/\d{4})', 1).alias('date'),
+    regexp_extract('value', r':(\d{2}):\d{2}:\d{2}', 1).alias('hour')
+)
+
+# Remove nulls
+log_df = log_df.na.fill({'content_size':0})
+
+print("\n===== SAMPLE DATA =====")
+log_df.show(5)
+
+# a. Content size statistics
+print("\n===== CONTENT SIZE STATS =====")
+log_df.select(
+    avg("content_size").alias("Average"),
+    min("content_size").alias("Minimum"),
+    max("content_size").alias("Maximum")
+).show()
+
+# b. HTTP Status Code Analysis
+print("\n===== STATUS CODE COUNT =====")
+log_df.groupBy("status").count().show()
+
+# c. Top 10 Frequent Hosts
+print("\n===== TOP 10 HOSTS =====")
+log_df.groupBy("host") \
+    .count() \
+    .orderBy(desc("count")) \
+    .show(10)
+
+# d. Top 20 Frequent Endpoints
+print("\n===== TOP 20 ENDPOINTS =====")
+log_df.groupBy("endpoint") \
+    .count() \
+    .orderBy(desc("count")) \
+    .show(20)
+
+# e. Top 10 Error Endpoints
+print("\n===== TOP ERROR ENDPOINTS =====")
+log_df.filter(col("status") >= 400) \
+    .groupBy("endpoint") \
+    .count() \
+    .orderBy(desc("count")) \
+    .show(10)
+
+# f. Unique Hosts
+print("\n===== UNIQUE HOSTS =====")
+print(log_df.select("host").distinct().count())
+
+# g. Average Requests Per Host Per Day
+print("\n===== AVG REQUESTS/HOST/DAY =====")
+daily_host_df = log_df.groupBy("date", "host").count()
+
+daily_avg = daily_host_df.groupBy("date") \
+    .agg(avg("count").alias("avg_requests"))
+
+daily_avg.show()
+
+# h. Top 20 404 Endpoints
+print("\n===== TOP 20 404 ENDPOINTS =====")
+log_df.filter(col("status") == 404) \
+    .groupBy("endpoint") \
+    .count() \
+    .orderBy(desc("count")) \
+    .show(20)
+
+# i. Hosts with Most 404 Errors
+print("\n===== HOSTS WITH MOST 404 ERRORS =====")
+log_df.filter(col("status") == 404) \
+    .groupBy("host") \
+    .count() \
+    .orderBy(desc("count")) \
+    .show(20)
+
+# j. 404 Errors Per Day
+print("\n===== 404 ERRORS PER DAY =====")
+errors_per_day = log_df.filter(col("status") == 404) \
+    .groupBy("date") \
+    .count() \
+    .orderBy("count", ascending=False)
+
+errors_per_day.show()
+
+# k. Top 3 Days with Most 404 Errors
+print("\n===== TOP 3 DAYS FOR 404 ERRORS =====")
+errors_per_day.show(3)
+
+# l. Hourly 404 Errors
+print("\n===== HOURLY 404 ERRORS =====")
+log_df.filter(col("status") == 404) \
+    .groupBy("hour") \
+    .count() \
+    .orderBy("hour") \
+    .show(24)
+
+spark.stop()
+Step 7 — Save File
+
+Press:
+
+Ctrl + O
+Enter
+Ctrl + X
+PART 4 — RUN PROGRAM
+Step 8 — Execute
+spark-submit weblog_analysis.py
+
+OR:
+
+python3 weblog_analysis.py
+
+(if Spark environment already configured)
+
+OUTPUT YOU WILL SEE
+
+You’ll get:
+
+Average content size
+Min/Max content size
+Status code counts
+Top hosts
+Top endpoints
+404 analysis
+Hourly error analysis
+IMPORTANT VIVA QUESTIONS
+What is Apache Spark?
+
+Apache Spark is a fast distributed data processing framework used for big data analytics.
+
+What is EDA?
+
+EDA (Exploratory Data Analysis) means analysing data to understand patterns, errors, trends, and relationships.
+
+What is a DataFrame?
+
+A distributed table-like structure in Spark.
+
+What is status code 404?
+
+404 means requested webpage/resource not found.
+
+What does groupBy() do?
+
+Used to group similar records together.
+
+COMMON ERRORS + FIXES
+ERROR 1
+command not found: spark-submit
+Fix
+
+Spark not added to PATH.
+
+Try:
+
+pyspark
+
+If not working, Spark is not installed.
+
+ERROR 2
+No such file or directory
+Fix
+
+Dataset files are not inside current folder.
+
+Check using:
+
+ls
+ERROR 3
+Permission denied
+Fix
+chmod +x weblog_analysis.py
