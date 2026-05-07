@@ -1,141 +1,142 @@
-Practical 4 — Data Visualization using Tableau / Power BI
+Practical: Data Visualization Using Power BI
+Aim
 
-We’ll cover BOTH Tableau and Power BI style workflow so you can do whichever software is available in lab.
+To perform data visualization using Power BI by:
 
-Dataset:
-Any supermarket/sales CSV or Excel file already downloaded in system.
+Connecting sales dataset
+Creating Line Chart
+Creating Bar Chart
+Creating Treemap
+Analyzing insights from data
 
-Examples:
+using Power BI Desktop
+.
 
-sales.csv
-superstore.csv
-orders.xlsx
-PART A — TABLEAU (Beginner Friendly)
-Step 1 — Open Tableau
-
-Open:
-
-Applications → Tableau
-
-or search:
-
-Tableau
-Step 2 — Connect Dataset
-
-On left side:
-
-Connect → To a File
+STEP 1 — Open Power BI
+Launch Power BI Desktop
+Click Get Data
 
 Choose:
 
-Excel
-OR
-Text File (CSV)
+Excel / CSV
 
-Select dataset.
+Select your sales dataset.
 
 Click:
 
-Open
-Step 3 — Go to Sheet 1
+Load
+STEP 2 — Verify Dataset
 
-Bottom tab:
+Your dataset contains columns like:
 
-Sheet 1
+Product
+Region
+OrderDate
+Quantity
+TotalPrice
+CustomerType
+STEP 3 — Create Total Sales Measure
 
-Click it.
+Right click Sheet1 → New Measure
 
-Understanding Tableau Interface
+Paste:
 
-You’ll see:
+Total Sales = SUM(Sheet1[TotalPrice])
 
-Section	Purpose
-Rows	Y-axis
-Columns	X-axis
-Marks	Color/labels
-Show Me	Chart suggestions
-Data Pane	Dataset columns
-a. Create Line Chart
-Goal
+Press ✔️
 
-Visualize sales over time.
+STEP 4 — Create Bar Chart
+Purpose
+
+Compare sales across regions/products.
 
 Steps
+Click empty report area
+In Visualizations → select Clustered Bar Chart
 
 Drag:
 
-Order Date
+Axis → Region
+Values → Total Sales
+Insight from Bar Chart
+Region with highest sales can be identified.
+Region with lowest sales can be analyzed.
+STEP 5 — Create Line Chart
+Purpose
 
-to:
+Analyze sales trend over time.
 
-Columns
+Create Year Column
 
-Then drag:
+Right click Sheet1 → New Column
 
-Sales
+Year = YEAR(Sheet1[OrderDate])
 
-to:
+Press ✔️
 
-Rows
-
-Now click:
-
-Show Me → Line Chart
-Insight Example
-Sales increase during festive seasons.
-b. Create Bar Chart
-
-Drag:
-
-Category
-
-to Columns.
+Create Line Chart
+Select Line Chart
 
 Drag:
 
-Sales
+Axis → Year
+Values → Total Sales
+Insight from Line Chart
+Sales growth over years can be observed.
+Highest performing year can be identified.
+STEP 6 — Create Treemap
+Purpose
 
-to Rows.
+Visualize contribution of products/categories.
 
-Choose:
-
-Show Me → Bar Chart
-Insight Example
-Technology category has highest sales.
-c. Create Tree Map
+Steps
+Select Treemap visual
 
 Drag:
 
-Category
+Group → Product
+Values → Total Sales
+Insight from Treemap
+Products with highest contribution occupy larger area.
+Helps identify best-selling products.
+STEP 7 — Add Filters (Optional)
+Add Slicer
+Select Slicer visual
 
-and:
+Drag:
 
-Sales
+Region
+OR
+Year
 
-Choose:
+Now dashboard becomes interactive.
 
-Show Me → Treemap
-Insight Example
-Furniture contributes less compared to Technology.
-Save Project
-File → Save As
+STEP 8 — Format Visuals
 
-Name:
+Go to:
 
-sales_visualization
-VIVA QUESTIONS
-What is Tableau?
+Format Visual
 
-A data visualization tool used for interactive dashboards and analysis.
+Enable:
 
-What is a dashboard?
+Titles
+Data labels
+Borders
+Background
 
-Collection of charts and visuals in one screen.
+Rename charts:
 
-What is a dimension?
+“Sales by Region”
+“Year-wise Sales Trend”
+“Product Contribution”
+Expected Output
 
-Categorical data like city/category.
+Dashboard containing:
 
-What is a measure?
+Bar Chart
+Line Chart
+Treemap
+Interactive filter
+Conclusion
 
-Numerical data like sales/profit.
+Successfully connected sales dataset and created multiple visualizations like bar chart, line chart, and treemap in Power BI to gain business insights.
