@@ -1,0 +1,176 @@
+Practical No. 6
+Data Analysis Using Power BI
+Aim
+
+To analyze supermarket sales data using aggregate functions like:
+
+SUM
+AVG
+COUNT
+MAX
+MIN
+STDDEV
+VAR
+CORR
+COVAR
+STEP 1 — Load Dataset
+
+Open:
+
+Power BI Desktop
+
+Then:
+
+Home → Get Data → Excel/CSV
+Load supermarket sales dataset
+
+Typical columns:
+
+Sales
+Profit
+Quantity
+Discount
+Category
+City
+Customer Type
+STEP 2 — Open Report View
+
+After loading:
+
+Click Report View from left panel.
+STEP 3 — Create Measures
+
+Go to:
+
+Right Click table → New Measure
+1. SUM Function
+Total Sales = SUM(Sales[Sales])
+
+Purpose:
+Calculates total sales.
+
+2. AVG Function
+Average Sales = AVERAGE(Sales[Sales])
+
+Purpose:
+Calculates average sales value.
+
+3. COUNT Function
+Total Orders = COUNT(Sales[Order ID])
+
+Purpose:
+Counts total orders.
+
+4. MAX Function
+Maximum Sales = MAX(Sales[Sales])
+
+Purpose:
+Finds highest sales amount.
+
+5. MIN Function
+Minimum Sales = MIN(Sales[Sales])
+
+Purpose:
+Finds lowest sales amount.
+
+6. STDDEV Function
+Sales StdDev = STDEV.P(Sales[Sales])
+
+Purpose:
+Measures spread of sales data.
+
+7. VAR Function
+Sales Variance = VAR.P(Sales[Sales])
+
+Purpose:
+Measures variance in sales.
+
+8. CORR Function
+
+Power BI DAX does not directly support CORR easily like SQL/Tableau.
+
+Instead use Python/R visual OR explain theoretically:
+
+Formula:
+
+Correlation measures relationship between two variables.
+
+Example:
+
+Sales vs Profit
+
+Range:
+
++1 → strong positive
+0 → no relation
+-1 → strong negative
+9. COVAR Function
+
+Similarly theoretical in Power BI practicals.
+
+Formula:
+
+Covariance shows how two variables vary together.
+
+Example:
+
+Sales and Quantity
+
+Positive covariance:
+Both increase together.
+
+Negative covariance:
+One increases while other decreases.
+
+STEP 4 — Add Visuals
+Add Cards
+
+Insert → Card
+
+Add:
+
+Total Sales
+Average Sales
+Maximum Sales
+Minimum Sales
+Add Bar Chart
+
+Axis:
+
+Category
+
+Values:
+
+Total Sales
+Add Pie Chart
+
+Legend:
+
+City
+
+Values:
+
+Total Orders
+Add Line Chart
+
+Axis:
+
+Date
+
+Values:
+
+Total Sales
+STEP 5 — Format Dashboard
+
+Go to:
+
+Format Visual
+
+Enable:
+
+Data Labels
+Titles
+Background
+Conclusion
+
+Successfully analyzed supermarket sales dataset using aggregate functions like SUM, AVG, COUNT, MAX, MIN, VAR, and STDDEV in Power BI.

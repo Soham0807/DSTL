@@ -1,0 +1,143 @@
+Practical: Sales Dashboard Using Power BI
+Aim
+
+To create an interactive sales dashboard showing:
+
+Location-wise sales
+Year-wise sales
+User interactive filtering using slicers
+STEP 1 — Load Dataset
+
+Open Power BI Desktop
+
+Then:
+
+Home → Get Data
+Import supermarket/sales dataset
+
+Your dataset already contains:
+
+Region
+StoreLocation
+OrderDate
+TotalPrice
+Product
+STEP 2 — Create Total Sales Measure
+
+Right Click Sheet1 → New Measure
+
+Total Sales = SUM(Sheet1[TotalPrice])
+
+Press ✔️
+
+STEP 3 — Create Year Column
+
+Right Click Sheet1 → New Column
+
+Year = YEAR(Sheet1[OrderDate])
+
+This extracts year from date.
+
+STEP 4 — Create KPI Card
+Total Sales Card
+Select Card visual
+Drag Total Sales
+
+Displays total revenue.
+
+STEP 5 — Create Location-wise Sales Chart
+Clustered Bar Chart
+
+Drag:
+
+Axis → Region or StoreLocation
+Values → Total Sales
+
+This shows sales across locations.
+
+STEP 6 — Create Year-wise Sales Chart
+Line Chart
+
+Drag:
+
+Axis → Year
+Values → Total Sales
+
+This shows yearly sales trend.
+
+STEP 7 — Create Product-wise Sales
+Pie Chart
+
+Drag:
+
+Legend → Product
+Values → Total Sales
+
+Displays contribution of products.
+
+STEP 8 — Add Interactive Filters (Slicers)
+Location Filter
+Select Slicer
+Drag Region or StoreLocation
+
+Now user can select a location and entire dashboard updates automatically.
+
+Year Filter
+
+Add another slicer:
+
+Drag Year
+
+Now dashboard becomes fully interactive.
+
+STEP 9 — Formatting Dashboard
+
+Go to:
+
+Format Visual
+
+Enable:
+
+Titles
+Data labels
+Background
+Border
+
+Rename visuals:
+
+“Sales by Location”
+“Year-wise Sales”
+“Product Sales Distribution”
+Expected Output
+
+Dashboard contains:
+
+Total Sales KPI
+Location-wise sales chart
+Year-wise line chart
+Product pie chart
+Interactive filters/slicers
+Conclusion
+
+Successfully created an interactive sales dashboard in Power BI using filters and multiple visualizations for location-wise and year-wise sales analysis.
+
+Viva Questions
+What is a dashboard?
+
+Collection of visuals representing business data interactively.
+
+What is a slicer?
+
+Interactive filter used in Power BI reports.
+
+Why use line chart for year-wise sales?
+
+To visualize trends over time.
+
+What is KPI card?
+
+Visual displaying summarized metric like total sales.
+
+Advantage of interactive dashboard?
+
+Users can dynamically filter and analyze data.
